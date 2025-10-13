@@ -1,6 +1,8 @@
 import songs from '../data.json'
 
-const SongsList = ({ updateCurrentSong }) => {
+const SongsList = () => {
+  const {setCurrentSongId} = React.useContext(PlayerContext)
+
   return (
     <div className="songs-list">
       <ol>
@@ -8,7 +10,7 @@ const SongsList = ({ updateCurrentSong }) => {
           const song = songs.byId[songId]
 
           return (
-            <li className="song-item" onClick={() => updateCurrentSong(songId)} key={songId}>
+            <li className="song-item" onClick={() => setCurrentSongId(songId)} key={songId}>
               <p>{song.name}</p>
             </li>
           )
