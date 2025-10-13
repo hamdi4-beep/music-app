@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ptd3FzOG5wd3JrZXAzbHgwcjhiNjFmb2N6OHBiZm9pOHlqNjcwbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OK5LK5zLFfdm/giphy.gif */
+/* https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmlkbWVhb2FkZDYzZG5xaGNvZHR1YWp3Z3F5ZG5nOHBqdWpybmZibSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5vgHoMiknf5iJl8FH1/giphy.gif */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Rubik;
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+    background-color: hsl(228, 33%, 97%);
+}
+
+.songs-list {
+    position: absolute;
+    left: -15%;
+    top: 0;
+    padding: 1em;
+    background-color: white;
+    height: 100%;
+}
+
+.songs-list:hover {
+    left: 0;
+}
+
+ol {
+    padding: 2em;
+}
+
+.song-item {
+    padding: .5em;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: hsl(228, 33%, 97%);
+}
+
+.player {
+    background-color: white;
+    border-radius: 5em;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+
+.header {
+    width: 30em;
+    height: 30em;
+    border-radius: 100%;
+    margin-top: -50%;
+    background-image: url(https://i.pinimg.com/736x/4e/ba/fb/4ebafb307673effa208a66ff4ef8f99d.jpg);
+    background-size: cover;
+    background-position: center;
+    transition: all .5s ease;
+    box-shadow: 0 0 5em black;
+    animation: rotation 3s .5s linear infinite;
+}
+
+.header:hover {
+    margin: 0;
+    border-radius: 0;
+    animation-delay: .5s;
+    animation: none;
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 4em;
+}
+
+.bar-duration {
+    background-color: hsl(228, 33%, 97%);
+    height: 5px;
+    width: 3em;
+    margin-inline: auto;
+    margin-block: .5em;
+}
+
+.control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    border-top: 1px solid hsl(228, 33%, 97%);
+    margin-inline: -2em;
+    margin-top: 1em;
+    padding-block: 1em;
+}
+
+.control > * {
+    cursor: pointer;
+}
+
+.icon-img {
+    width: 100px;
+    height: 0px;
+    margin-inline: auto;
+}
+
+.icon-img img {
+    object-fit: cover;
+    max-width: 100%;
+}
+
+input {
+    font: inherit;
+    border: none;
+    padding: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    border-radius: 15px;
+}
+
+@keyframes rotation {
+    from {
+        rotate: 0deg;
+    } to {
+        rotate: 360deg;
+    }
+}
