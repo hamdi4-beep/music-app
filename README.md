@@ -1,16 +1,28 @@
-# React + Vite
+# Music Player MVP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight React-based music player with essential playback controls and song navigation.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Playback Controls**: Play, pause, and navigate between tracks with previous/next buttons
+- **Song Queue**: Sidebar list displaying all available tracks with click-to-play functionality
+- **Real-time Playback Info**: Displays current track time and total duration with formatted timestamps
+- **Visual Feedback**: Rotating album art animation that responds to playback state
+- **Automatic Track Cycling**: Seamlessly loops to first/last track when navigating beyond playlist boundaries
+- **Context-based State Management**: Centralized player state using React Context API
+- **Persistent Audio Instance**: Single audio element shared across components for consistent playback
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Run development server
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Build for production
+npm run build
+```
+
+The app will be available at `http://localhost:5173` (or the port specified by Vite).
