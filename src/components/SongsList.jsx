@@ -1,3 +1,5 @@
+import * as React from 'react'
+import { PlayerContext } from '../Provider'
 import songs from '../data.json'
 
 const SongsList = () => {
