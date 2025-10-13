@@ -1,6 +1,9 @@
 import * as React from 'react'
 
-export const PlayerContext = React.createContext();
+export const PlayerContext = React.createContext({
+    currentSongId: 1,
+    setCurrentSongId: () => {},
+});
 
 function Provider({ children }) {
     const [currentSongId, setCurrentSongId] = React.useState(1)
