@@ -49,13 +49,18 @@ li:hover {
     overflow: hidden;
     text-align: center;
     position: relative;
+    width: 30rem;
+    height: 30rem;
+    display: grid;
+    align-items: flex-end;
 }
 
 .header {
+    position: absolute;
     width: 30em;
     height: 30em;
+    top: -50%;
     border-radius: 100%;
-    margin-top: -50%;
     background-image: url(https://i.pinimg.com/736x/4e/ba/fb/4ebafb307673effa208a66ff4ef8f99d.jpg);
     background-size: cover;
     background-position: center;
@@ -64,11 +69,20 @@ li:hover {
     animation: rotation 3s .5s linear infinite;
 }
 
+.content {
+    position: relative;
+}
+
 .header:hover {
+    top: 0;
     margin: 0;
     border-radius: 0;
     animation-delay: .5s;
     animation: none;
+}
+
+.header:hover + .content {
+    color: white;
 }
 
 .song-info {
