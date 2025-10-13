@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {FaCirclePlay, FaCirclePause, FaChevronRight, FaChevronLeft} from 'react-icons/fa6'
+import {FaCirclePlay, FaCirclePause, FaForwardStep, FaBackwardStep} from 'react-icons/fa6'
 import songs from '../data.json'
 import SongInfo from './SongInfo'
 import { useSong } from '../hooks'
@@ -36,7 +36,7 @@ const Player = React.memo(({
         <SongInfo songId={item.id} />
 
         <div className="control">
-          <FaChevronLeft size={30} onClick={handlePreviousClick} />
+          <FaBackwardStep size={30} onClick={handlePreviousClick} />
 
           {!isSongPlaying ? (
             <FaCirclePlay size={30} onClick={() => play()} />
@@ -44,7 +44,7 @@ const Player = React.memo(({
             <FaCirclePause size={30} onClick={() => pause()} />
           )}
 
-          <FaChevronRight size={30} onClick={handleNextClick} />
+          <FaForwardStep size={30} onClick={handleNextClick} />
         </div>
       </div>
     </div>
