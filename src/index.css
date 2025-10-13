@@ -79,6 +79,7 @@ li:hover {
     border-radius: 0;
     animation-delay: .5s;
     animation: none;
+    filter: blur(4px);
 }
 
 .header:hover + .content {
