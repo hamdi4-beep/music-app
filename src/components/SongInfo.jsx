@@ -1,6 +1,5 @@
 import songs from '../data.json'
 import { useSongInfo } from '../hooks'
-import { formatTime } from '../utils'
 
 const SongInfo = ({
   songId

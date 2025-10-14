@@ -4,22 +4,23 @@ import songs from '../data.json'
 import SongInfo from './SongInfo'
 import { useSong, useSongInfo } from '../hooks'
 import { PlayerContext } from '../Provider'
+import { formatTime } from '../utils'
 
 const Player = React.memo(({
   songId,
 }) => {
-  const {setCurrentSongId} = React.useContext(PlayerContext)
   const item = songs.byId[songId]
+  const {setCurrentSongId} = React.useContext(PlayerContext)
   const {isSongPlaying, play, pause} = useSong(`/songs/${item.filename}`)
   const {currentTime, duration} = useSongInfo()
 
-  console.log(((currentTime / duration) * 100) + '%')
-
   if (!item) return
 
-  const style = {
+  const playStateStyle = {
     animationPlayState: isSongPlaying ? 'running' : 'paused'
   }
+
+  const progressBarWidth = (currentTime / duration) * 100
 
   const handleNextClick = () => {
     const nextSongId = songId + 1
@@ -33,13 +34,17 @@ const Player = React.memo(({
 
   return (
     <div className="player">
-      <div className='header' style={style}></div>
+      <div className='header' style={playStateStyle}></div>
 
       <div className="content">
-        <SongInfo songId={item.id} />
+        <div className="song-info">
+          <p>{item.artist}</p>
+          <p>{item.name}</p>
+          <p className='duration'>{formatTime(currentTime)} / {formatTime(duration)}</p>
+        </div>
 
         <div className="control">
-          <div className="progress-bar" style={{width: ((currentTime / duration) * 100) + '%'}}></div>
+          <div className="progress-bar" style={{width: progressBarWidth + '%'}}></div>
           <FaBackwardStep size={30} onClick={handlePreviousClick} />
 
           {!isSongPlaying ? (
