@@ -2,7 +2,7 @@ import * as React from 'react'
 import {FaCirclePlay, FaCirclePause, FaForwardStep, FaBackwardStep} from 'react-icons/fa6'
 import songs from '../data.json'
 import SongInfo from './SongInfo'
-import { useSong } from '../hooks'
+import { useSong, useSongInfo } from '../hooks'
 import { PlayerContext } from '../Provider'
 
 const Player = React.memo(({
@@ -11,6 +11,9 @@ const Player = React.memo(({
   const {setCurrentSongId} = React.useContext(PlayerContext)
   const item = songs.byId[songId]
   const {isSongPlaying, play, pause} = useSong(`/songs/${item.filename}`)
+  const {currentTime, duration} = useSongInfo()
+
+  console.log(((currentTime / duration) * 100) + '%')
 
   if (!item) return
 
@@ -36,6 +39,7 @@ const Player = React.memo(({
         <SongInfo songId={item.id} />
 
         <div className="control">
+          <div className="progress-bar" style={{width: ((currentTime / duration) * 100) + '%'}}></div>
           <FaBackwardStep size={30} onClick={handlePreviousClick} />
 
           {!isSongPlaying ? (

@@ -12,8 +12,7 @@ const SongInfo = ({
     <div className="song-info">
       <p>{item.artist}</p>
       <p>{item.name}</p>
-      <div className="bar-duration"></div>
-      <p>{formatTime(currentTime)} / {formatTime(duration)}</p>
+      <p className='duration'>{formatTime(currentTime)} / {formatTime(duration)}</p>
     </div>
   )
 }
