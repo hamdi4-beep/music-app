@@ -97,33 +97,35 @@ li:hover {
     margin-top: .5em;
 }
 
-.bar-duration {
-    background-color: hsl(228, 33%, 97%);
-    height: 5px;
-    width: 3em;
-    margin-inline: auto;
-    margin-block: .5em;
-}
-
 .control {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1em;
-    border-top: 1px solid hsl(228, 33%, 97%);
-    margin-inline: -2em;
     margin-top: 1em;
     padding-block: 1em;
     position: relative;
 }
 
+.control::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: hsl(228, 33%, 97%);
+}
+
 .progress-bar {
     position: absolute;
-    top: -1px;
-    left: 2rem;
+    top: 0;
+    left: 0;
     width: 0%;
     height: 1px;
     background-color: black;
+    transition: all .5s ease-in-out;
 }
 
 .control > * {
