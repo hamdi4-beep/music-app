@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {FaCirclePlay, FaCirclePause, FaForwardStep, FaBackwardStep} from 'react-icons/fa6'
 import songs from '../data.json'
-import SongInfo from './SongInfo'
 import { useSong, useSongInfo } from '../hooks'
 import { PlayerContext } from '../Provider'
 import { formatTime } from '../utils'
