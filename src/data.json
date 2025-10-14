@@ -23,7 +23,13 @@
             "name": "God of the Mind",
             "artist": "Disturbed",
             "filename": "God of the Mind.mp3"
+        },
+        "5": {
+            "id": 5,
+            "name": "The Vengful One",
+            "artist": "Disturbed",
+            "filename": "The Vengful One.mp3"
         }
     },
-    "allId": [1, 2, 3, 4]
+    "allId": [1, 2, 3, 4, 5]
 }
