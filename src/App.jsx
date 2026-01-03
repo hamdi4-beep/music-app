@@ -1,9 +1,14 @@
 import * as React from 'react'
 import {FaCirclePlay, FaCirclePause, FaForwardStep, FaBackwardStep} from 'react-icons/fa6'
-import { formatTime } from './utils'
-import songs from './data.json'
+import { songs } from './songs'
 
 const audio = new Audio()
+
+const padString = number =>
+  String(number).padStart(2, '0')
+
+const formatTime = time =>
+  padString(Math.floor(time / 60)) + ':' + padString(Math.floor(time % 60))
 
 const registerEventListener = (eventName, eventHandler) => {
     audio.addEventListener(eventName, eventHandler)
@@ -14,24 +19,15 @@ function App() {
   const [currentSongId, setCurrentSongId] = React.useState(1)
   const [currentTime, setCurrentTime] = React.useState(0)
   const [duration, setDuration] = React.useState(0)
-  const [isSongPlaying, setIsSongPlaying] = React.useState(false)
 
-  const currentSong = songs.byId[currentSongId]
+  console.log(currentSongId)
+
+  const currentSong = songs.find(song => song.id === currentSongId)
   const currentSrc = `/songs/${currentSong.filename}`
 
   React.useEffect(() => {
-      audio.src = currentSrc
-
-      if (audio.paused) setIsSongPlaying(false)
-
-      const unregisterPlayListener = registerEventListener('play', () => setIsSongPlaying(true))
-      const unregisterPauseListener = registerEventListener('pause', () => setIsSongPlaying(false))
-
-      return () => {
-          unregisterPlayListener()
-          unregisterPauseListener()
-      }
-  }, [currentSrc])
+    audio.src = currentSrc
+  }, [currentSongId])
 
   React.useEffect(() => {
       const unregisterTimeUpdateListener = registerEventListener('timeupdate', () => setCurrentTime(audio.currentTime))
@@ -46,30 +42,26 @@ function App() {
   const progressBarWidth = (currentTime / duration) * 100
 
   const handleNextClick = () =>
-    setCurrentSongId(prev => songs.byId[prev + 1] ? prev + 1 : songs.allId[0])
+    setCurrentSongId(prev => prev >= songs.length ? 1 : prev + 1)
     
 
   const handlePreviousClick = () =>
-    setCurrentSongId(prev => songs.byId[prev - 1] ? prev - 1 : songs.allId[songs.allId.length - 1])
+    setCurrentSongId(prev => prev <= 1 ? songs.length : prev - 1)
 
   return (
     <div className="player-container">
       <div className="songs-list">
         <ol>
-          {songs.allId.map((songId, i) => {
-            const song = songs.byId[songId]
-  
-            return (
-              <li className="song-item" onClick={() => setCurrentSongId(songId)} key={songId}>
-                <p>{song.name}</p>
-              </li>
-            )
-          })}
+          {songs.map(song => (
+            <li className="song-item" onClick={() => setCurrentSongId(song.id)} key={song.id}>
+              <p>{song.name}</p>
+            </li>
+          ))}
         </ol>
       </div>
 
       <div className="player">
-        <div className='header' style={{animationPlayState: isSongPlaying ? 'running' : 'paused'}}></div>
+        <div className='header' style={{animationPlayState: audio.paused ? 'paused' : 'running'}}></div>
   
         <div className="content">
           <div className="song-info">
@@ -82,7 +74,7 @@ function App() {
             <div className="progress-bar" style={{width: progressBarWidth + '%'}}></div>
             <FaBackwardStep size={30} onClick={handlePreviousClick} />
   
-            {!isSongPlaying ? (
+            {audio.paused ? (
               <FaCirclePlay size={30} onClick={() => audio.play()} />
             ) : (
               <FaCirclePause size={30} onClick={() => audio.pause()} />
