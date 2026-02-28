@@ -1,6 +1,5 @@
 import * as React from 'react'
 import {FaCirclePlay, FaCirclePause, FaForwardStep, FaBackwardStep} from 'react-icons/fa6'
-import { songs } from '../songs'
 
 const audio = new Audio()
 
@@ -16,17 +15,15 @@ const registerEventListener = (eventName, eventHandler) => {
 }
 
 function Player({
-    currentSongId,
+    currentSong,
     updateSongId
 }) {
     const [currentTime, setCurrentTime] = React.useState(0)
     const [duration, setDuration] = React.useState(0)
 
-    const currentSong = songs.find(song => song.id === currentSongId)
-
     React.useEffect(() => {
         audio.src = `/songs/${currentSong.filename}`
-    }, [currentSongId])
+    }, [currentSong])
 
     React.useEffect(() => {
         const unregisterTimeUpdateListener = registerEventListener('timeupdate', () => setCurrentTime(audio.currentTime))

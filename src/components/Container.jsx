@@ -4,6 +4,7 @@ import Player from './Player'
 
 function Container() {
     const [currentSongId, setCurrentSongId] = React.useState(1)
+    const currentSong = songs.find(song => song.id === currentSongId)
 
     return (
         <div className="player-container">
@@ -22,7 +23,7 @@ function Container() {
             </div>
 
             <Player
-                currentSongId={currentSongId}
+                currentSong={currentSong}
                 updateSongId={setCurrentSongId}
             />
         </div>
