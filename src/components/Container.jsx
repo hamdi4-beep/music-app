@@ -24,7 +24,8 @@ function Container() {
 
             <Player
                 currentSong={currentSong}
-                updateSongId={setCurrentSongId}
+                nextSong={() => setCurrentSongId(prev => prev <= 1 ? songs.length : prev - 1)}
+                previousSong={() => setCurrentSongId(prev => prev >= songs.length ? 1 : prev + 1)}
             />
         </div>
     )

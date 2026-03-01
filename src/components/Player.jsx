@@ -13,9 +13,9 @@ const iconSize = 30
 
 function Player({
     currentSong,
-    updateSongId
+    previousSong,
+    nextSong
 }) {
-    const [isPlaying, setIsPlaying] = React.useState(false)
     const [currentTime, setCurrentTime] = React.useState(0)
     const [duration, setDuration] = React.useState(0)
 
@@ -26,25 +26,19 @@ function Player({
     React.useEffect(() => {
         const timeUpdateListener = () => setCurrentTime(audio.currentTime)
         const loadedMetaDataListener = () => setDuration(audio.duration)
-        const playListener = () => setIsPlaying(true)
-        const pauseListener = () => setIsPlaying(false)
 
         audio.addEventListener('timeupdate', timeUpdateListener)
         audio.addEventListener('loadedmetadata', loadedMetaDataListener)
-        audio.addEventListener('play', playListener)
-        audio.addEventListener('pause', pauseListener)
 
         return () => {
             audio.removeEventListener('timeupdate', timeUpdateListener)
             audio.removeEventListener('loadedmetadata', loadedMetaDataListener)
-            audio.removeEventListener('play', playListener)
-            audio.removeEventListener('pause', pauseListener)
         }
     }, [])
 
     return (
         <div className="player">
-            <div className='header' style={{animationPlayState: !isPlaying ? 'paused' : 'running'}}></div>
+            <div className='header' style={{animationPlayState: audio.paused ? 'paused' : 'running'}}></div>
     
             <div className="content">
                 <div className="song-info">
@@ -58,7 +52,7 @@ function Player({
 
                     <FaBackwardStep
                         size={iconSize}
-                        onClick={() => updateSongId(prev => prev <= 1 ? songs.length : prev - 1)}
+                        onClick={() => previousSong()}
                     />
         
                     {audio.paused ? (
@@ -75,7 +69,7 @@ function Player({
         
                     <FaForwardStep
                         size={iconSize}
-                        onClick={() => updateSongId(prev => prev >= songs.length ? 1 : prev + 1)}
+                        onClick={() => nextSong()}
                     />
                 </div>
             </div>
