@@ -9,15 +9,13 @@ const padString = number =>
 const formatTime = time =>
   `${padString(Math.floor(time / 60))}:${padString(Math.floor(time % 60))}`
 
-const registerEventListener = (eventName, eventHandler) => {
-    audio.addEventListener(eventName, eventHandler)
-    return () => audio.removeEventListener(eventName, eventHandler)
-}
+const iconSize = 30
 
 function Player({
     currentSong,
     updateSongId
 }) {
+    const [isPlaying, setIsPlaying] = React.useState(false)
     const [currentTime, setCurrentTime] = React.useState(0)
     const [duration, setDuration] = React.useState(0)
 
@@ -26,18 +24,27 @@ function Player({
     }, [currentSong])
 
     React.useEffect(() => {
-        const unregisterTimeUpdateListener = registerEventListener('timeupdate', () => setCurrentTime(audio.currentTime))
-        const unregisterLoadedMetaDataListener = registerEventListener('loadedmetadata', () => setDuration(audio.duration))
+        const timeUpdateListener = () => setCurrentTime(audio.currentTime)
+        const loadedMetaDataListener = () => setDuration(audio.duration)
+        const playListener = () => setIsPlaying(true)
+        const pauseListener = () => setIsPlaying(false)
+
+        audio.addEventListener('timeupdate', timeUpdateListener)
+        audio.addEventListener('loadedmetadata', loadedMetaDataListener)
+        audio.addEventListener('play', playListener)
+        audio.addEventListener('pause', pauseListener)
 
         return () => {
-            unregisterTimeUpdateListener()
-            unregisterLoadedMetaDataListener()
+            audio.removeEventListener('timeupdate', timeUpdateListener)
+            audio.removeEventListener('loadedmetadata', loadedMetaDataListener)
+            audio.removeEventListener('play', playListener)
+            audio.removeEventListener('pause', pauseListener)
         }
     }, [])
 
     return (
         <div className="player">
-            <div className='header' style={{animationPlayState: audio.paused ? 'paused' : 'running'}}></div>
+            <div className='header' style={{animationPlayState: !isPlaying ? 'paused' : 'running'}}></div>
     
             <div className="content">
                 <div className="song-info">
@@ -50,24 +57,24 @@ function Player({
                     <div className="progress-bar" style={{width: ((currentTime / duration) * 100) + '%'}}></div>
 
                     <FaBackwardStep
-                        size={30}
+                        size={iconSize}
                         onClick={() => updateSongId(prev => prev <= 1 ? songs.length : prev - 1)}
                     />
         
                     {audio.paused ? (
                         <FaCirclePlay
-                            size={30}
+                            size={iconSize}
                             onClick={() => audio.play()}
                         />
                     ) : (
                         <FaCirclePause
-                            size={30}
+                            size={iconSize}
                             onClick={() => audio.pause()}
                         />
                     )}
         
                     <FaForwardStep
-                        size={30}
+                        size={iconSize}
                         onClick={() => updateSongId(prev => prev >= songs.length ? 1 : prev + 1)}
                     />
                 </div>
